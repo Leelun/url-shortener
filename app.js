@@ -1,11 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const UrlShortener = require('./models/shortener')
+const bodyParser = require('body-parser')
 
 const port = 3000
 const app = express()
 
-
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 if (process.env.NODE_ENV !== 'production') { //僅在非正式環境時, 使用 dotenv
@@ -35,6 +37,13 @@ app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
   res.render('index')
+})
+
+app.post('/readyShorten', (req, res) => {
+  const urlInput = req.body.urlInput
+  UrlShortener.create({ urlInput })
+  .then(() => res.redirect('/'))
+  .catch(error => console.log(error))
 })
 
 
