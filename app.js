@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.post('/readyShorten', (req, res) => {
+app.post('/toShorten', (req, res) => {
   const urlInput = req.body.urlInput
   UrlShortener.create({ urlInput })
   .then(() => res.redirect('/'))
