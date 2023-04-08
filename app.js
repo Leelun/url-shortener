@@ -56,7 +56,7 @@ app.get('/ShortenDone/:shorten', (req, res) => {
   UrlShortener.findOne({ urlOutput: `localhost:${port}/ShortenDone/${shorten}` })
   .lean()
   .then((shortenURL) => res.redirect(shortenURL.urlInput))
-  .catch(error => console.log(404))
+  .catch(() => { res.sendStatus(404) }) 
 })
   
 
