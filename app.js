@@ -42,24 +42,22 @@ app.get('/', (req, res) => {
 
 app.post('/toShorten', (req, res) => {
   const urlInput = req.body.urlInput
-  
-  const urlOutput = `localhost:${port}/`
+  const urlOutput = `localhost:${port}/ShortenDone/`
   res.render('output', { urlOutput })
 
 // 先渲染output畫面再去建資料庫
 
   UrlShortener.create({ urlInput, urlOutput })
-    // .then(() => res.redirect('/ShortenDone'))
     .catch(error => console.log(error))
 })
 
-// app.get('/ShortenDone/', (req, res) => {
-//   const id = req.params.id
-//   UrlShortener.findById(id)
-//   .lean()
-//   .then((shortenURL) => res.render('output', { shortenURL }))
-//   .catch(error => console.log(error))
-// })
+app.get('/ShortenDone/:shorten', (req, res) => {
+  const shorten = req.params.shorten
+  UrlShortener.findOne({ urlOutput: `localhost:${port}/ShortenDone/${shorten}` })
+  .lean()
+  .then((shortenURL) => res.redirect(shortenURL.urlInput))
+  .catch(error => console.log(404))
+})
   
 
 
