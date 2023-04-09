@@ -42,13 +42,38 @@ app.get('/', (req, res) => {
 
 app.post('/toShorten', (req, res) => {
   const urlInput = req.body.urlInput
-  const urlOutput = `localhost:${port}/ShortenDone/`
-  res.render('output', { urlOutput })
 
-// 先渲染output畫面再去建資料庫
+  function getRandomLetter() {
+    const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
+    const uppercaseLetters = lowerCaseLetters.toUpperCase()
+    const numberLetters = '0123456789'
+    const randomSelection = lowerCaseLetters + uppercaseLetters + numberLetters
+    const randomLetters = Math.floor(Math.random() * randomSelection.length)
+    const output = randomSelection[randomLetters]
+    return output
+  }
+  function getRandomUrlOutput() {
+    let randomLetterOutput = ''
+    for (let i = 1; i <= 5; i++) {
+      randomLetterOutput += getRandomLetter()
+    }
+    return output = randomLetterOutput
+  }
+
+  let randomUrlOutput = getRandomUrlOutput()
+  
+  const urlOutput = `localhost:${port}/ShortenDone/${randomUrlOutput}`
+
+
+
+  res.render('output', { urlOutput }) // 先渲染output畫面再去建資料庫
+
+  
+
 
   UrlShortener.create({ urlInput, urlOutput })
-    .catch(error => console.log(error))
+  .catch(error => console.log(error))
+
 })
 
 app.get('/ShortenDone/:shorten', (req, res) => {
