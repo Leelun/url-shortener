@@ -6,13 +6,5 @@
     
     <p id="copy">{{urlOutput}}</p>
     <button type="button" class="btn btn-primary" onclick="copyEvent('copy')">Copy</button>
-    {{!-- copy --}}
-      <script>
-        function copyEvent(id) {
-          const str = document.getElementById(id);
-          window.getSelection().selectAllChildren(str);
-          document.execCommand("Copy")
-        }
-      </script>
     <a href="/">返回首頁</a>
 

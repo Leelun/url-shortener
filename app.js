@@ -61,7 +61,7 @@ app.post('/toShorten', (req, res) => {
   }
 
   let randomUrlOutput = getRandomUrlOutput()
-  
+
   const urlOutput = `localhost:${port}/ShortenDone/${randomUrlOutput}`
 
 
@@ -83,7 +83,7 @@ app.get('/ShortenDone/:shorten', (req, res) => {
   .then((shortenURL) => res.redirect(shortenURL.urlInput))
   .catch(() => { res.sendStatus(404) }) 
 })
-  
+
 
 
 
