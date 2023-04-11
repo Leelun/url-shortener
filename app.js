@@ -10,28 +10,8 @@ app.use(routes)
 require('./config/mongoose')
 
 
-
-
-
-
-
-
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(port, () => {
   console.log(`app is listen on http://localhost:${port}`)
