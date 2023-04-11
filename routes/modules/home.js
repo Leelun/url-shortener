@@ -5,21 +5,15 @@ const UrlShortener = require('../../models/shortener')
 const getRandomUrlOutput = require('../../getRandomShortcode')
 const port = 3000
 
-if (process.env.NODE_ENV !== 'production') { //僅在非正式環境時, 使用 dotenv
-  require('dotenv').config()
-}
-
 
 router.get('/', (req, res) => {
   res.render('index')
 })
 
 router.post('/toShorten', (req, res) => {
-  
   const urlInput = req.body.urlInput
   let path = getRandomUrlOutput()
   const urlOutput = `localhost:${port}/ShortenDone/${path}`
-
   function check() {
     UrlShortener.exists({ urlOutput: `localhost:${port}/ShortenDone/${path}` })
       .then((result) => {
