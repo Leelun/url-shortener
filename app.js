@@ -41,8 +41,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/toShorten', (req, res) => {
-  const urlInput = req.body.urlInput
-
   function getRandomLetter() {
     const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
     const uppercaseLetters = lowerCaseLetters.toUpperCase()
@@ -59,21 +57,36 @@ app.post('/toShorten', (req, res) => {
     }
     return output = randomLetterOutput
   }
+  const urlInput = req.body.urlInput
+  let path = getRandomUrlOutput()
+  const urlOutput = `localhost:${port}/ShortenDone/${path}`
 
-  let randomUrlOutput = getRandomUrlOutput()
-
-  const urlOutput = `localhost:${port}/ShortenDone/${randomUrlOutput}`
-
-
-
-  res.render('output', { urlOutput }) // 先渲染output畫面再去建資料庫
-
-  
-
-
-  UrlShortener.create({ urlInput, urlOutput })
-  .catch(error => console.log(error))
-
+  function check () {
+    UrlShortener.exists({ urlOutput: `localhost:${port}/ShortenDone/${path}` })
+    .then((result) =>{
+      if (result) {
+        path = getRandomUrlOutput()
+        check()
+      } else {
+        UrlShortener.findOne({ urlInput })
+        
+        .then((data) => {
+          if (data) {
+            res.render('output', { urlOutput: data.urlOutput }) // 先渲染output畫面再去建資料庫
+          } else {
+            UrlShortener.create({ urlInput, urlOutput })
+          
+            .then(() => {
+              res.render('output', { urlOutput })
+            })
+              .catch(error => console.log(error))
+          }
+        })
+          .catch(error => console.log(error))
+      }
+    })
+  }
+  check();
 })
 
 app.get('/ShortenDone/:shorten', (req, res) => {
