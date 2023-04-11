@@ -28,13 +28,14 @@
 1. 打開terminal，Clone此專案至本機
 
 ```
-git clone https://github.com/Leelun/AC-restaurant_list.git
+git clone https://github.com/Leelun/url-shortener.git
+
 
 ```
 2. 開啟Terminal，進入存放此專案的資料夾
 
 ```
-cd AC-restaurant_list
+cd url-shortener
 
 ```
 3. 安裝 npm 套件
