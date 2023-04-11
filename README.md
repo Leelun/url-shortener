@@ -3,7 +3,8 @@
 一個使用Node.js + Express + mongoDB 製作短網址產生器
 
 ![home](https://github.com/Leelun/url-shortener/blob/main/photo/home.png)
-![Minion](https://octodex.github.com/images/minion.png)
+![output](https://github.com/Leelun/url-shortener/blob/main/photo/output.png)
+
 
 
 
